@@ -4,9 +4,8 @@
 --------
 
 ## Integrantes
-- 
-- 
-- 
+- Elmer Escandón
+- Claudia Pacori
 
 ----
 
