@@ -84,7 +84,62 @@ class DirectedGraph : public Graph<TV, TE>{
         return (density() >= threshold) ? true : false;   
         }
 
-        bool isConnected(){throw("missing");}
+        bool isConnected(){ // Listo - Validado
+            // Crear dos array uno para string y a partir del id, darle el valor al visited[i]
+            std::unordered_map<string, bool> visited_table;
+
+            // Reinicializar el nodo puntero (inicial - u)
+            auto iter =  this -> vertexes.begin();
+            for (iter = this -> vertexes.begin(); iter != this -> vertexes.end(); iter++){
+                visited_table[iter -> first] = false;
+            }
+
+            iter =  this -> vertexes.begin();
+            Vertex<TV,TE>* vertex_u = iter -> second;
+            std::list<string> stack; // Stack de verificación
+
+            // Inicializar
+            visited_table[vertex_u -> id] = true;
+            stack.push_back(vertex_u -> id);
+            bool found_new = false;
+
+
+            while (!stack.empty()){
+                cout << "Grafo Analizado: "  << vertex_u -> id << endl;
+                for (auto edge : vertex_u -> edges){
+                    string edge_other;
+                    if (edge -> vertexes[1] -> id != vertex_u -> id)
+                        edge_other = edge -> vertexes[1] -> id;
+                    else 
+                        edge_other = edge -> vertexes[0] -> id;
+                    
+                    if (visited_table[edge_other] == false){
+                        stack.push_back(edge_other);
+                        visited_table[edge_other] = true;
+                        vertex_u = this -> vertexes[edge_other];
+                        found_new = true;
+                        break;
+                    }
+                }
+                if (!found_new){
+                        stack.pop_back(); 
+                        if (!stack.empty())
+                            vertex_u = this -> vertexes[stack.back()];
+                }
+                found_new = false;
+            }
+
+            bool isConnected_val = true;
+
+            for (auto iter = visited_table.begin(); iter != visited_table.end(); iter++){
+                isConnected_val = isConnected_val & iter -> second;
+            }
+
+
+            return isConnected_val;
+
+
+        }
 
         bool isStronglyConnected(){throw("missing");}
 

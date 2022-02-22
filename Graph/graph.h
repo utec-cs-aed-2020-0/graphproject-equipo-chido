@@ -38,7 +38,7 @@ struct Edge {
 
 template<typename TV, typename TE>
 struct Vertex {
-    string id;
+    string id;  
     TV data;
     std::list<Edge<TV, TE>*> edges;
 

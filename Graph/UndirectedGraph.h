@@ -100,22 +100,58 @@ class UnDirectedGraph : public Graph<TV, TE>{
             return (density() >= threshold) ? true : false;   
         }
 
-        bool isConnected(){
-            string* str_visited = new string[this -> vertexes.size()];
-            auto iter = this -> vertexes.begin();
+        bool isConnected(){ // Listo - Validado
+            // Crear dos array uno para string y a partir del id, darle el valor al visited[i]
+            std::unordered_map<string, bool> visited_table;
 
-            for (int n=0; n < this -> vertexes.size(); n++){
-                str_visited[n] = iter -> first;
-                iter++;
+            // Reinicializar el nodo puntero (inicial - u)
+            auto iter =  this -> vertexes.begin();
+            for (iter = this -> vertexes.begin(); iter != this -> vertexes.end(); iter++){
+                visited_table[iter -> first] = false;
             }
-            iter = this -> vertexes.begin();
-            bool* is_visited = new bool[this -> vertexes.size()];
 
+            iter =  this -> vertexes.begin();
+            Vertex<TV,TE>* vertex_u = iter -> second;
+            std::list<string> stack; // Stack de verificación
 
-            for (int n = 0; n < this -> vertexes.size(); n++){
-                cout << str_visited[n] << endl;
+            // Inicializar
+            visited_table[vertex_u -> id] = true;
+            stack.push_back(vertex_u -> id);
+            bool found_new = false;
+
+            while (!stack.empty()){
+                cout << "Grafo Analizado: "  << vertex_u -> id << endl;
+                for (auto edge : vertex_u -> edges){
+                    string edge_other;
+                    if (edge -> vertexes[1] -> id != vertex_u -> id)
+                        edge_other = edge -> vertexes[1] -> id;
+                    else 
+                        edge_other = edge -> vertexes[0] -> id;
+                    
+                    if (visited_table[edge_other] == false){
+                        stack.push_back(edge_other);
+                        visited_table[edge_other] = true;
+                        vertex_u = this -> vertexes[edge_other];
+                        found_new = true;
+                        break;
+                    }
+                }
+                if (!found_new){
+                        stack.pop_back(); 
+                        if (!stack.empty())
+                            vertex_u = this -> vertexes[stack.back()];
+                }
+                found_new = false;
             }
-            return false;
+
+            bool isConnected_val = true;
+
+            for (auto iter = visited_table.begin(); iter != visited_table.end(); iter++){
+                isConnected_val = isConnected_val & iter -> second;
+            }
+
+
+            return isConnected_val;
 
         };
         bool isStronglyConnected(){throw("Error");}; //solo aplica para grafos dirigidos
@@ -137,9 +173,9 @@ class UnDirectedGraph : public Graph<TV, TE>{
                 cout << " -> "; 
                 for (auto edge : vert -> edges){
                     if (edge -> vertexes[0] != vert)
-                        cout << " " << edge -> vertexes[0] -> id << " (" <<edge ->  weight <<  ")";
+                        cout << " " << edge -> vertexes[0] -> id << " (" << edge ->  weight <<  ")";
                     else if (edge -> vertexes[1] != vert)
-                        cout << " " << edge -> vertexes[1] -> id << " (" <<edge -> weight <<  ")";
+                        cout << " " << edge -> vertexes[1] -> id << " (" << edge -> weight <<  ")";
                 }
 
                 cout << endl;

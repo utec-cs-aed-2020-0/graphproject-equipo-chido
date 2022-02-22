@@ -10,6 +10,8 @@
         "list": "cpp",
         "xutility": "cpp",
         "iostream": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "unordered_map": "cpp",
+        "xlocale": "cpp"
     }
 }
