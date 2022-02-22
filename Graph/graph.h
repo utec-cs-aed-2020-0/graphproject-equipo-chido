@@ -59,7 +59,7 @@ public:
     virtual bool insertVertex(string id, TV vertex) = 0;   
     virtual bool createEdge(string id1, string id2, TE w) = 0;     
     virtual bool deleteVertex(string id) = 0;     
-    // virtual bool deleteEdge(string id) = 0;   
+    virtual bool deleteEdge(string id_inicio, string id_final) = 0;   
     virtual TE &operator()(string start, string end)= 0;  
     virtual float density() = 0;
     virtual bool isDense(float threshold = 0.5) = 0;

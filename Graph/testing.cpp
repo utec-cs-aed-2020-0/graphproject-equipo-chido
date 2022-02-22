@@ -24,25 +24,24 @@ int main(){
     graph -> display();
 
     cout << "¿Está conectado?: " << graph -> isConnected() << endl;
-    // graph -> isConnected();
     
-    // cout << "Peso entre A y B:" << graph -> operator()("A","B") << endl;
-    // graph -> deleteEdge("A", "B");
-    // cout << "1: " << endl;
-    // graph -> display();
+    cout << "Peso entre A y B:" << graph -> operator()("A","B") << endl;
+    graph -> deleteEdge("A", "B");
+    cout << "1: " << endl;
+    graph -> display();
     
-    // graph -> deleteVertex("A");
-    // cout << "2: " << endl;
-    // graph -> display();
+    graph -> deleteVertex("A");
+    cout << "2: " << endl;
+    graph -> display();
 
 
-    // cout << "3: " << endl; 
-    // cout << "Densidad es : " << graph -> density() << endl;
-    // cout << "Densidad pasa threshold : " << graph -> isDense() << endl;
-    // cout << "El grafo está vació:" << graph -> empty() << endl;
-    // graph -> clear();
-    // cout << "El grafo está vació:" << graph -> empty() << endl;
-    // graph -> display();
+    cout << "3: " << endl; 
+    cout << "Densidad es : " << graph -> density() << endl;
+    cout << "Densidad pasa threshold : " << graph -> isDense() << endl;
+    cout << "El grafo está vació:" << graph -> empty() << endl;
+    graph -> clear();
+    cout << "El grafo está vació:" << graph -> empty() << endl;
+    graph -> display();
 
 
 
