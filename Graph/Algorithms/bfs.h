@@ -60,7 +60,7 @@ class BFS{
         }
 
         void display(){
-            cout<<"Camino más corto desde: "<<id_inicial<<" -> ";
+            cout<<"Unido desde: "<<id_inicial<<" -> ";
             for(int i=0; i<BFSapplied.size();i++){
                 cout<<BFSapplied[i]->id<<" ("<<BFSapplied[i]->data<<") ";
             }
