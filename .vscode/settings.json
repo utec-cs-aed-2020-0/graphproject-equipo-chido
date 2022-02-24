@@ -47,6 +47,8 @@
         "xiosbase": "cpp",
         "xlocinfo": "cpp",
         "xlocnum": "cpp",
-        "xtr1common": "cpp"
+        "xtr1common": "cpp",
+        "algorithm": "cpp",
+        "queue": "cpp"
     }
 }
