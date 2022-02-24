@@ -10,7 +10,7 @@ using namespace std;
 template<typename TV, typename TE>
 class BFS {
 private:
-	DirectedGraph<TV, TE>* BFSapplied = new DirectedGraph<TV,TE>() ;
+	DirectedGraph<TV, TE>* BFS_graph = new DirectedGraph<TV,TE>() ;
 public:
 	BFS(DirectedGraph<TV, TE>* graph, string start) {
 		unordered_map<TV, string> help;
@@ -19,25 +19,25 @@ public:
 		}
 
 		std::unordered_map<TV, TV> visited;
-		queue<TV> resQ;
+		queue<TV> q;
 		TV aux = graph->vertexes.find(start)->second->data;
-		resQ.push(aux);
+		q.push(aux);
 		visited[aux] = aux;
 		string auxS = help.find(aux)->second;
-		this->BFSapplied->insertVertex(auxS, aux);
+		this->BFS_graph->insertVertex(auxS, aux);
 		TV aux2 = aux;
-		while (!resQ.empty()) {
-			aux = resQ.front();
-			resQ.pop();
+		while (!q.empty()) {
+			aux = q.front();
+			q.pop();
 			auxS = help.find(aux)->second;
 			for (auto it2 = graph->vertexes.find(auxS)->second->edges.begin(); it2 != graph->vertexes.find(auxS)->second->edges.end(); it2++) {
 				aux2 = (*it2)->vertexes[1]->data;
                 //cout<<"analizando: "<<auxS<<endl;
 				if (visited.find(aux2) == visited.end()) {
 					visited[aux2] = aux2;
-					resQ.push(aux2);
-					this->BFSapplied->insertVertex(help.find(aux2)->second, aux2);
-					this->BFSapplied->createEdge(auxS, help.find(aux2)->second, (*it2)->weight);
+					q.push(aux2);
+					this->BFS_graph->insertVertex(help.find(aux2)->second, aux2);
+					this->BFS_graph->createEdge(auxS, help.find(aux2)->second, (*it2)->weight);
                     //cout<<"conectando con: "<<(*it2)->vertexes[1]->id<<endl;
 				}
 			}
@@ -45,10 +45,10 @@ public:
 	}
 
 	~BFS() = default;
-	Graph<TV,TE>* get_graph(){return BFSapplied;}
+	Graph<TV,TE>* get_graph(){return BFS_graph;}
 
         void display(){
-            BFSapplied -> display();
+            BFS_graph -> display();
         }
 };
 
