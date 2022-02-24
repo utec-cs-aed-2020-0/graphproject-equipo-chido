@@ -1,39 +1,55 @@
-#include <iostream>
-#include "graph.h"
-#include "UndirectedGraph.h"
-#include "DirectedGraph.h"
-#include "Algorithms/bfs.h"
+#ifndef BFS_H
+#define BFS_H
 
+#include "../graph.h"
+#include <queue>
+#include <unordered_map>
 
-int main(){
+using namespace std;
 
-    DirectedGraph<int, int>* graph = new DirectedGraph<int, int>();
-    //UnDirectedGraph<int, int>* graph = new UnDirectedGraph<int, int>();
+template<typename TV, typename TE>
+class BFS {
+private:
+	DirectedGraph<TV, TE>* BFSapplied = new DirectedGraph<TV,TE>() ;
+public:
+	BFS(DirectedGraph<TV, TE>* graph, string start) {
+		unordered_map<TV, string> help;
+		for (auto it = graph->vertexes.begin(); it != graph->vertexes.end(); it++) {
+            help[it->second->data] = it->first;
+		}
 
-    graph -> insertVertex("A",30);
-    graph -> insertVertex("B",50);
-    graph -> insertVertex("C",25);
-    graph -> insertVertex("D",35);
-    graph -> insertVertex("E",35);
+		std::unordered_map<TV, TV> visited;
+		queue<TV> resQ;
+		TV aux = graph->vertexes.find(start)->second->data;
+		resQ.push(aux);
+		visited[aux] = aux;
+		string auxS = help.find(aux)->second;
+		this->BFSapplied->insertVertex(auxS, aux);
+		TV aux2 = aux;
+		while (!resQ.empty()) {
+			aux = resQ.front();
+			resQ.pop();
+			auxS = help.find(aux)->second;
+			for (auto it2 = graph->vertexes.find(auxS)->second->edges.begin(); it2 != graph->vertexes.find(auxS)->second->edges.end(); it2++) {
+				aux2 = (*it2)->vertexes[1]->data;
+                //cout<<"analizando: "<<auxS<<endl;
+				if (visited.find(aux2) == visited.end()) {
+					visited[aux2] = aux2;
+					resQ.push(aux2);
+					this->BFSapplied->insertVertex(help.find(aux2)->second, aux2);
+					this->BFSapplied->createEdge(auxS, help.find(aux2)->second, (*it2)->weight);
+                    //cout<<"conectando con: "<<(*it2)->vertexes[1]->id<<endl;
+				}
+			}
+		}
+	}
 
-    graph -> createEdge("B","C",6);
-    graph -> createEdge("E","C",8);
-    graph -> createEdge("D","A",14);
-    graph -> createEdge("B","A",1);
-    graph -> createEdge("C","B",6);
-    graph -> createEdge("D","C",8);
-    graph -> createEdge("D","E",1);
-    graph -> createEdge("A","E",1);
-    graph -> createEdge("C","A",1);
-    graph -> createEdge("D","B",1);
-    graph -> createEdge("B","D",1);    
-    graph -> display();
+	~BFS() = default;
+	Graph<TV,TE>* get_graph(){return BFSapplied;}
 
-    BFS<int,int> bfs_alg(graph, "A");
-    cout << "BFS: " << endl;
-    bfs_alg.display();
-    
+        void display(){
+            BFSapplied -> display();
+        }
+};
 
-
-
-}
+#endif
