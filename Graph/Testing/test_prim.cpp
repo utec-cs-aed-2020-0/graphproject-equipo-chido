@@ -1,8 +1,8 @@
 #include <iostream>
-#include "graph.h"
-#include "UndirectedGraph.h"
-#include "DirectedGraph.h"
-#include "Algorithms/prim.h"
+#include "../graph.h"
+#include "../UndirectedGraph.h"
+#include "../DirectedGraph.h"
+#include "../Algorithms/prim.h"
 
 
 int main(){

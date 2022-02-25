@@ -1,13 +1,13 @@
 #include <iostream>
-#include "graph.h"
-#include "UndirectedGraph.h"
-#include "DirectedGraph.h"
+#include "../graph.h"
+#include "../UndirectedGraph.h"
+#include "../DirectedGraph.h"
 
 
 int main(){ 
 
-    // DirectedGraph<int, int>* graph = new DirectedGraph<int, int>();
-    UnDirectedGraph<int, int>* graph = new UnDirectedGraph<int, int>();
+    DirectedGraph<int, int>* graph = new DirectedGraph<int, int>();
+    // UnDirectedGraph<int, int>* graph = new UnDirectedGraph<int, int>();
 
     graph -> insertVertex("A",30);
     graph -> insertVertex("B",50);
@@ -48,22 +48,12 @@ int main(){
     cout << "3: " << endl; 
     cout << "Densidad es : " << graph -> density() << endl;
     cout << "Densidad pasa threshold : " << graph -> isDense() << endl;
-<<<<<<< HEAD
     cout << "El grafo está vació:" << graph -> empty() << endl;
     graph -> clear();
     cout << "El grafo está vació:" << graph -> empty() << endl;
-=======
-    cout << "El grafo está vacio:" << graph -> empty() << endl;
-    graph -> clear();
-    cout << "El grafo está vacio:" << graph -> empty() << endl;
->>>>>>> clau-dev
     graph -> display();
 
 
 
     return 0; 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> clau-dev

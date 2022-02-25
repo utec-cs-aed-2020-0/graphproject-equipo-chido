@@ -1,8 +1,8 @@
 #include <iostream>
-#include "graph.h"
-#include "UndirectedGraph.h"
-#include "DirectedGraph.h"
-#include "Algorithms/kruskal.h"
+#include "../graph.h"
+#include "../UndirectedGraph.h"
+#include "../DirectedGraph.h"
+#include "../Algorithms/kruskal.h"
 
 
 int main(){
