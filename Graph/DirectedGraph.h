@@ -105,7 +105,6 @@ class DirectedGraph : public Graph<TV, TE>{
 
 
             while (!stack.empty()){
-                cout << "Grafo Analizado: "  << vertex_u -> id << endl;
                 for (auto edge : vertex_u -> edges){
                     string edge_other;
                     if (edge -> vertexes[1] -> id != vertex_u -> id)
