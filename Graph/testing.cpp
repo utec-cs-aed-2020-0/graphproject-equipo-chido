@@ -24,6 +24,16 @@ int main(){
     graph -> display();
 
     cout << "¿Está conectado?: " << graph -> isConnected() << endl;
+    cout << "¿Está fuertemente conectado?: " << graph -> isStronglyConnected() << endl;
+    graph -> createEdge("B","A",1);
+    graph -> createEdge("C","B",6);
+    graph -> createEdge("D","C",8);
+    graph -> createEdge("A","D",1);
+    graph -> createEdge("A","C",1);
+    graph -> createEdge("C","A",1);
+    graph -> createEdge("D","B",1);
+    graph -> createEdge("B","D",1);
+    cout << "¿Está fuertemente conectado?: " << graph -> isStronglyConnected() << endl;
     
     cout << "Peso entre A y B:" << graph -> operator()("A","B") << endl;
     graph -> deleteEdge("A", "B");
@@ -38,12 +48,22 @@ int main(){
     cout << "3: " << endl; 
     cout << "Densidad es : " << graph -> density() << endl;
     cout << "Densidad pasa threshold : " << graph -> isDense() << endl;
+<<<<<<< HEAD
     cout << "El grafo está vació:" << graph -> empty() << endl;
     graph -> clear();
     cout << "El grafo está vació:" << graph -> empty() << endl;
+=======
+    cout << "El grafo está vacio:" << graph -> empty() << endl;
+    graph -> clear();
+    cout << "El grafo está vacio:" << graph -> empty() << endl;
+>>>>>>> clau-dev
     graph -> display();
 
 
 
     return 0; 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> clau-dev

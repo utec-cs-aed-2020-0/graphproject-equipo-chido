@@ -2,7 +2,8 @@
 #define NONDIRECTEDGRAPH_H
 
 #include "graph.h"
-
+#include <queue>
+#include <unordered_set>
 template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE>{
 
@@ -140,7 +141,55 @@ class DirectedGraph : public Graph<TV, TE>{
 
         }
 
-        bool isStronglyConnected(){throw("missing");}
+        bool isStronglyConnected(){
+            int resultado = 0;
+            // Crear dos array uno para string y a partir del id, darle el valor al visited[i]
+            std::unordered_map<string, bool> visited_table;
+
+            // Reinicializar el nodo puntero (inicial - u)
+            auto iter =  this -> vertexes.begin();
+            for (iter = this -> vertexes.begin(); iter != this -> vertexes.end(); iter++){
+                visited_table[iter -> first] = false;
+            }
+
+            iter =  this -> vertexes.begin();
+            Vertex<TV,TE>* vertex_u = iter -> second;
+            std::list<string> stack; // Stack de verificación
+
+            // Inicializar
+            visited_table[vertex_u -> id] = true;
+            stack.push_back(vertex_u -> id);
+            bool found_new = false;
+
+
+            while (!stack.empty()){
+                for (auto edge : vertex_u -> edges){
+                    string edge_other;
+                    if (edge -> vertexes[1] -> id != vertex_u -> id)
+                        edge_other = edge -> vertexes[1] -> id;
+                    else 
+                        edge_other = edge -> vertexes[0] -> id;
+                    
+                    if (visited_table[edge_other] == false){
+                        stack.push_back(edge_other);
+                        visited_table[edge_other] = true;
+                        vertex_u = this -> vertexes[edge_other];
+                        found_new = true;
+                        break;
+                    }
+                    resultado++;
+                }
+                if (!found_new){
+                        stack.pop_back(); 
+                        if (!stack.empty())
+                            vertex_u = this -> vertexes[stack.back()];
+                }
+                found_new = false;
+                
+            }
+
+            return resultado == this->vertexes.size()*(this->vertexes.size()-1);
+        }
 
         bool empty(){ // Listo - Validado
             return (this->vertexes.size()==0) ? true : false;

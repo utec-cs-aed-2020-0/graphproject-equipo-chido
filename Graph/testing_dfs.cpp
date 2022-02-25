@@ -7,8 +7,8 @@
 
 int main(){
 
-    // DirectedGraph<int, int>* graph = new DirectedGraph<int, int>();
-    UnDirectedGraph<int, int>* graph = new UnDirectedGraph<int, int>();
+    DirectedGraph<int, int>* graph = new DirectedGraph<int, int>();
+    // UnDirectedGraph<int, int>* graph = new UnDirectedGraph<int, int>();
 
     graph -> insertVertex("A",30);
     graph -> insertVertex("B",50);
@@ -30,4 +30,4 @@ int main(){
 
 
 
-}
+};
