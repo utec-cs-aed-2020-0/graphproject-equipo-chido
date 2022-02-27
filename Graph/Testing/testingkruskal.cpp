@@ -1,8 +1,8 @@
 #include <iostream>
-#include "graph.h"
-#include "UndirectedGraph.h"
-#include "DirectedGraph.h"
-#include "Algorithms/kruskal.h"
+#include "../graph.h"
+#include "../UndirectedGraph.h"
+#include "../DirectedGraph.h"
+#include "../Algorithms/kruskal.h"
 
 
 int main(){
@@ -39,6 +39,7 @@ int main(){
 
     Kruskal<int,int> krus(graph);
     krus.apply();
+    UnDirectedGraph<int, int>* graph2 = krus.kruskal_(krus);
     cout << "Kruskal: " << endl;
-    krus.display();
+    graph2->display();
 }
