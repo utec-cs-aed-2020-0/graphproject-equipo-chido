@@ -51,7 +51,10 @@ void Parser::readJSON() {
 void Parser::uGraphMake(UnDirectedGraph<string, double> &tempGraph) {
     //tuple<json,json> aux;
     for (int i = 0; i < this->jsonGraph.size(); i++){
-        tempGraph.insertVertex(this->jsonGraph[i]["City"], this->jsonGraph[i]["Airport ID"]);}   // se crean los vértices
+        string aux = this->jsonGraph[i]["Latitude"];
+        aux += '\n';
+        aux += this->jsonGraph[i]["Longitude"];
+        tempGraph.insertVertex(this->jsonGraph[i]["City"], aux);}   // se crean los vértices
     
     for (int i = 0; i < this->jsonGraph.size(); i++) {   // se crean los edges
         for (int j = 0; j < this->jsonGraph[i]["destinations"].size(); j++) {
@@ -70,7 +73,10 @@ void Parser::uGraphMake(UnDirectedGraph<string, double> &tempGraph) {
 
 void Parser::dGraphMake(DirectedGraph<string, double> &tempGraph) {
     for (int i = 0; i < this->jsonGraph.size(); i++){
-        tempGraph.insertVertex(this->jsonGraph[i]["City"], this->jsonGraph[i]["Airport ID"]);}   // se crean los vértices
+        string aux = this->jsonGraph[i]["Latitude"];
+        aux += '\n';
+        aux += this->jsonGraph[i]["Longitude"];
+        tempGraph.insertVertex(this->jsonGraph[i]["City"], aux);}   // se crean los vértices
     
     for (int i = 0; i < this->jsonGraph.size(); i++) {   // se crean los edges
         for (int j = 0; j < this->jsonGraph[i]["destinations"].size(); j++) {
