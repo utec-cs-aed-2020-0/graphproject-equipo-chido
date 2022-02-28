@@ -1,5 +1,6 @@
 #include <iostream>
-#include "graph.h"
+
+#include "../graph.h"
 #include "../UndirectedGraph.h"
 #include "../DirectedGraph.h"
 #include "../Algorithms/greedybfs.h"
