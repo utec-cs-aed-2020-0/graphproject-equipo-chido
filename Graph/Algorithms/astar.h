@@ -1,7 +1,7 @@
 #ifndef ASTAR_H
 #define ASTAR_H
 
-#include "../graph.h"
+#include "../undirectedgraph.h"
 #include <iostream>
 #include <limits>
 
@@ -11,11 +11,15 @@ class AStar{
     
     private:
         Graph<TV,TE>* graph;
+        UnDirectedGraph<TV,TE> astar_graph;
         string id_inicial;
         string id_meta;
         unordered_map<string,TV> tabla_h;
         unordered_map<string,string> tabla_padres;
         unordered_map<string,bool> tabla_used;
+        unordered_map<string,int> vect_mapheuristics;
+        vector<int> heuristics;
+
 
         TE calcular_Gn(string vert_id){
             string id_eval = vert_id;
@@ -58,10 +62,17 @@ class AStar{
 
 
     public:
-        AStar(Graph<TV,TE>* _graph, string _id_inicial, string _id_meta) : graph(_graph), id_inicial(_id_inicial), id_meta(_id_meta) {};
+        AStar(Graph<TV,TE>* _graph, string _id_inicial, string _id_meta, vector<int> _heuristics) : graph(_graph), id_inicial(_id_inicial), id_meta(_id_meta), heuristics(_heuristics) {
+            int cont = 0;
+            for (auto iter = graph -> vertexes.begin(); iter != graph -> vertexes.end(); iter++){
+                vect_mapheuristics[iter -> first] = cont; 
+                cont++;    
+            }
+
+        };
         ~AStar() = default;
 
-        void apply_search(){
+        UnDirectedGraph<TV,TE> apply(){
             // G(n) -> Distancia desde el nodo inicial hacia el nodo actual [n]
             // F(n) -> Distancia del nodo actual [n] hacia el deseado - Heurística
             Vertex<TV,TE>* vert =  graph -> vertexes.find(id_inicial) -> second;
@@ -71,6 +82,7 @@ class AStar{
             while (!reach_flag){
                 // Indicar vértice a utilizar
                 tabla_used[vert_id] = true;
+                astar_graph.insertVertex(vert_id, graph -> vertexes[vert_id] -> data);
                 // Añadir sus aristas e incluir el valor F(n)
                 for (auto edge : graph -> vertexes[vert_id] -> edges){
                     string  vert_next = (edge -> vertexes[1] -> id != vert_id) ?
@@ -78,9 +90,8 @@ class AStar{
 
                     if (tabla_h.find(vert_next) == tabla_h.end()){
                         tabla_padres[vert_next] = vert_id;
-                        tabla_h[vert_next]  = calcular_Gn(vert_next) + graph -> vertexes[vert_next] -> data;  //  G(n) + H(n)
+                        tabla_h[vert_next]  = calcular_Gn(vert_next) + heuristics[vect_mapheuristics[vert_next]];// graph -> vertexes[vert_next] -> data;  //  G(n) + H(n)
                         tabla_used[vert_next] = false;
-                        // cout <<  "Nuevo nodo: " << tabla_padres[vert_next] << " / Nodo Apunta: " << vert_next << "/ F(n) es: " << tabla_h[vert_next] << endl;
 
                     }
                     else{ 
@@ -89,26 +100,30 @@ class AStar{
                             string prev_padre = tabla_padres[vert_next];
                             // Ahora cambiar y sacar el nuevo valor de Fn
                             tabla_padres[vert_next] = vert_id;
-                            TE new_Fn  = calcular_Gn(vert_next) + graph -> vertexes[vert_next] -> data;
+                            TE new_Fn  = calcular_Gn(vert_next) + heuristics[vect_mapheuristics[vert_next]];
                             if (new_Fn < tabla_h[vert_next])
                                 tabla_h[vert_next] = new_Fn;
                             else
                                 tabla_padres[vert_next] = prev_padre;
                             tabla_used[vert_next] = false;
-                            // cout <<  "Nodo: " << tabla_padres[vert_next] << " / Nodo Apunta: " << vert_next << "/ F(n) es: " << tabla_h[vert_next] << endl;
 
                         }
                     }
                     
                 }
 
-                vert_id = extraerMinimo();
-                // cout << vert_id << endl;
+                string new_vert_id = extraerMinimo();
+                // Insertar arista
+                astar_graph.createEdge(vert_id, new_vert_id, 1);
+                vert_id = new_vert_id;
                 if (vert_id == id_meta){
                     tabla_used[vert_id] = true;
                     reach_flag = true;
                 }
             }
+
+            return astar_graph;
+
         };
 
         void display(){

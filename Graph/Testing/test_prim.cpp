@@ -28,7 +28,7 @@ int main(){
     graph -> display();
 
     Prim<int,int> prim_alg(graph);
-    prim_alg.apply_search();
+    prim_alg.apply();
     // dfs_alg.apply_search();
     // cout << "DFS: " << endl;
     // dfs_alg.display();

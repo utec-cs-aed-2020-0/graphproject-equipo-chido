@@ -10,8 +10,8 @@ int main(int argc, char *argv[]) {
     std::cout << "MENU GRAPH TESTER" << std::endl;
     std::cout << "================================================" << std::endl;
     
-    Tester::executeExamples();
-    Tester::executeParser();
-    
+    Tester::executeExamples(); // Crear grafos ejemplos (Embellecerlo) - Ir avanzando el Readme
+    Tester::executeParser(); // Que se ejecute el menú  
+
     return EXIT_SUCCESS;
 }

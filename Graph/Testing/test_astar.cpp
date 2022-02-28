@@ -23,6 +23,11 @@ int main(){
     graph -> insertVertex("G",34);
     graph -> insertVertex("H",19);
 
+    vector <int> heuristics;
+    for (auto iter = graph -> vertexes.begin();iter != graph -> vertexes.end(); iter++){
+        heuristics.push_back(iter -> second -> data);
+    }
+
     graph -> createEdge("A","B", 22);
     graph -> createEdge("A","C", 9);
     graph -> createEdge("A","D", 12);
@@ -51,7 +56,7 @@ int main(){
     graph -> createEdge("I","H", 19);
 
     graph -> display();
-    AStar<int,int> astar_alg(graph,"A","I");
-    astar_alg.apply_search();
+    AStar<int,int> astar_alg(graph,"A","I", heuristics);
+    astar_alg.apply();
     astar_alg.display();
 }
