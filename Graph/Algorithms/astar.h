@@ -2,6 +2,7 @@
 #define ASTAR_H
 
 #include "../undirectedgraph.h"
+#include "../graph.h"
 #include <iostream>
 #include <limits>
 

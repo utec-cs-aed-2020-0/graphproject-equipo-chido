@@ -91,4 +91,8 @@ class Prim{
 
 };
 
+<<<<<<< HEAD
 #endif
+=======
+#endif
+>>>>>>> clau-dev

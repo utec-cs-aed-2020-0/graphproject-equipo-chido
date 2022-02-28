@@ -56,6 +56,11 @@ class Kruskal {
                 }
             }
         }
+
+        UnDirectedGraph<TV, TE>* kruskal_(Kruskal<TV,TE>& graph){
+            return Krus_graph;
+        }
+
         void display(){
             Krus_graph -> display();
         }

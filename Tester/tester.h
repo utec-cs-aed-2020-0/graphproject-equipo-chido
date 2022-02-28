@@ -1,10 +1,22 @@
+#ifndef TESTER_H
+#define TESTER_H
+
+#include "../Graph/DirectedGraph.h"
+#include "../Graph/UndirectedGraph.h"
+#include "../Parser/parser.hpp"
+#include <string>
 #include <iostream>
-#include "../graph.h"
-#include "../UndirectedGraph.h"
-#include "../DirectedGraph.h"
 
+using namespace std;
 
-int main(){ 
+struct Tester {
+    static void executeExamples();
+    static void executeParserPeru();
+    //static void executeParserInternational();
+};
+
+void Tester::executeExamples() {
+    cout << endl<< "---------------- GRAFOS BASICOS -----------------" << endl;
 
     DirectedGraph<int, int>* graph = new DirectedGraph<int, int>();
     // UnDirectedGraph<int, int>* graph = new UnDirectedGraph<int, int>();
@@ -48,12 +60,34 @@ int main(){
     cout << "3: " << endl; 
     cout << "Densidad es : " << graph -> density() << endl;
     cout << "Densidad pasa threshold : " << graph -> isDense() << endl;
-    cout << "El grafo está vació:" << graph -> empty() << endl;
+    cout << "El grafo está vacio:" << graph -> empty() << endl;
     graph -> clear();
-    cout << "El grafo está vació:" << graph -> empty() << endl;
+    cout << "El grafo está vacio:" << graph -> empty() << endl;
     graph -> display();
 
-
-
-    return 0; 
 }
+
+void Tester::executeParserPeru() {
+    cout << endl<<"---------------- PARSER PERU -----------------" << endl;
+
+    Parser Peru("Parser/Data/pe.json");
+    Peru.readJSON();
+    DirectedGraph<string, double> uGraph;
+
+    Peru.dGraphMake(uGraph);
+    cout<<endl;
+    uGraph.display();
+}
+
+/*
+void Tester::executeParserInternational() {
+    cout << endl<<"---------------- PARSER INTERNACIONAL -----------------" << endl;
+    Parser graph("Parser/Data/airports.json");
+    graph.readJSON();
+    DirectedGraph<string, double> dGraph;
+    graph.dGraphMake(dGraph);
+    dGraph.display();
+}
+*/
+
+#endif
