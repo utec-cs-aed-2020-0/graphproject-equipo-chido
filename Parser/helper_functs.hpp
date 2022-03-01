@@ -8,7 +8,6 @@
 #include <cmath>
 using namespace std;
 
-// for convenience
 using json = nlohmann::json;
 
 /////////////////////////////////////////////////////////////////////
@@ -36,15 +35,14 @@ double distance(string lat_1, string lon_1, string lat_2, string lon_2)
     return radio_tierra * 2 * asin(sqrt(a));
 }
 
-// funcion para encontrar la ubicación de un aeropuerto en el jsonGraph teniendo como base el AirportID
+//Encuentra la ubicación de un aeropuerto en el jsonGraph teniendo como base el AirportID
 
 int findByAirportID(json jsonGraph, string id) {
     for (int i = 0; i < jsonGraph.size(); i++) {
         if (jsonGraph[i]["Airport ID"] == id)
             return i;
     }
-    cout << id << endl;
-    return 15;                              // si no existe el destino, retorna 0
+    return 15;                              // si no existe el destino, retorna un valor por defecto
 }
 
 #endif // HELPER_FUNCTS_HPP
