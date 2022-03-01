@@ -7,13 +7,13 @@
 template <typename TV, typename TE>
 class Bellman {
 public:
-    DirectedGraph <TV, TE> *graph;
+    Graph <TV, TE> *graph;
     string start_id;
     unordered_map<string, int> distancia;
     unordered_map<Vertex<TV, TE>*, string> ids;
     unordered_map<string, string> predecesor;
 
-    Bellman(DirectedGraph <TV, TE>* _graph, string id) {
+    Bellman(Graph <TV, TE>* _graph, string id) {
         graph = _graph;
         start_id = id;
     }

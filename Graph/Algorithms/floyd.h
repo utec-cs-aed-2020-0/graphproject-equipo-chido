@@ -104,7 +104,7 @@ class Floyd{
         /* Posicion de los vértices*/
 
         /* Verificar inicialización de las matriz de distancias */
-        cout << "Matriz de distancias: " << endl;
+        cout << "\nMatriz de distancias: " << endl;
 
         for (int i = 0; i < size_vert;i++){
             cout << name_vectores[i] << "| ";
@@ -117,7 +117,7 @@ class Floyd{
             cout << endl;
         }
         /* Verificar inicialización de las matriz de recorridos */
-        cout << "Matriz de recorridos: " << endl;
+        cout << "\nMatriz de recorridos: " << endl;
         for (int i = 0; i < size_vert;i++){
             cout << name_vectores[i] << "| ";
             for (int j = 0; j < size_vert;j++){
@@ -129,7 +129,7 @@ class Floyd{
 
     void show_path(string from, string to){
         string init = from;
-        cout << "La trayectoria es: ";
+        cout << "\nLa trayectoria es: ";
         while (init != to){
             cout << init << " -> ";
             init = mat_recorr[vertex_pos[init]][vertex_pos[to]];
