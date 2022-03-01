@@ -48,9 +48,9 @@ int main(){
     cout << "3: " << endl; 
     cout << "Densidad es : " << graph -> density() << endl;
     cout << "Densidad pasa threshold : " << graph -> isDense() << endl;
-    cout << "El grafo está vacio:" << graph -> empty() << endl;
+    cout << "El grafo está vació:" << graph -> empty() << endl;
     graph -> clear();
-    cout << "El grafo está vacio:" << graph -> empty() << endl;
+    cout << "El grafo está vació:" << graph -> empty() << endl;
     graph -> display();
 
 

@@ -3,7 +3,6 @@
 #include "../DirectedGraph.h"
 #include "../Algorithms/bellman.h"
 
-
 int main(){
 
     DirectedGraph<int, int>* graph = new DirectedGraph<int, int>();

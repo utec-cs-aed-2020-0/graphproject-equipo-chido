@@ -1,18 +1,34 @@
 #ifndef TESTER_H
 #define TESTER_H
 
+
+#include <string>
+#include <iostream>
+#include <sstream>
+
+
 #include "../Graph/DirectedGraph.h"
 #include "../Graph/UndirectedGraph.h"
 #include "../Parser/parser.hpp"
-#include <string>
-#include <iostream>
+#include "../Parser/helper_functs.hpp"
+#include "../Graph/Algorithms/astar.h"
+#include "../Graph/Algorithms/greedybfs.h"
+
+#include "../Graph/Algorithms/bellman.h"
+
+#include "../Graph/Algorithms/kruskal.h"
+#include "../Graph/Algorithms/prim.h"
+
+#include "../Graph/Algorithms/dijkstra.h"
+
+#include "../Graph/Algorithms/floyd.h"
 
 using namespace std;
 
 struct Tester {
     static void executeExamples();
     static void executeParserPeru();
-    //static void executeParserInternational();
+    static void executeParserInternational();
 };
 
 void Tester::executeExamples() {
@@ -72,14 +88,97 @@ void Tester::executeParserPeru() {
 
     Parser Peru("Parser/Data/pe.json");
     Peru.readJSON();
-    DirectedGraph<string, double> uGraph;
+    // Directed
+    DirectedGraph<string, double> dGraph;
+    DirectedGraph<string, double>* dir_graph = &dGraph; 
+    Peru.dGraphMake(dGraph);
+    dGraph.display();
 
-    Peru.dGraphMake(uGraph);
+    // UnDirectedGraph
+    UnDirectedGraph<string, double> uGraph;
+    UnDirectedGraph<string, double>* udir_graph = &uGraph; 
+    Peru.uGraphMake(uGraph);
     cout<<endl;
     uGraph.display();
+
+
+    string from = "Piura";
+    string to = "Pucallpa";
+
+    string to_dists = uGraph.vertexes[to]->data;
+    string lat_2 = to_dists.substr(0,to_dists.find("\n"));
+    string lon_2 = to_dists.substr(to_dists.find("\n")+1,to_dists.size());
+
+
+    vector<double> heuristic;
+    for (auto iter = uGraph.vertexes.begin(); iter != uGraph.vertexes.end(); iter++){
+        // cout << "Ciudad: " << iter -> first << " -> Coordenadas: \n" << iter -> second -> data << endl; 
+        string dists = iter -> second -> data;
+        string lat_1 = dists.substr(0,dists.find("\n"));
+        string lon_1 = dists.substr(dists.find("\n")+1,dists.size());
+        double value = distance(lat_1, lon_1, lat_2, lon_2);
+        heuristic.push_back(value);
+    }
+    // Create heuristics
+    cout<<endl<<endl;
+    
+    
+    
+    cout<<endl<<endl;
+    /*  A-Star Implementación */
+    AStar<string,double> astar_alg(udir_graph,from,to, heuristic);
+    astar_alg.apply();
+    cout << "A*: " << endl;
+    cout << "El mejor camino para ir de " << from << " a " << to  << " es : " << endl; 
+    astar_alg.display();
+
+    cout<<endl<<endl;
+    /* GREEDY BFS IMPLEMENTACIÓN */
+    Greedy<string,double> greedy_alg(udir_graph,from,to, heuristic);
+    greedy_alg.apply();
+    cout << "Greedy BFS: " << endl;
+    cout << "El mejor camino para ir de " << from << " a " << to  << " es : " << endl; 
+    greedy_alg.display();
+
+    cout<<endl<<endl;
+    /* BELLMAN IMPLEMENTACIÓN  */ 
+    Bellman<string,double> bell(dir_graph,"Cuzco");
+    bell.apply();
+    cout << "Bellman Ford: " << endl;
+    bell.display();
+
+    cout<<endl<<endl;
+    /* KRUSKAL IMPLEMENTACIÓN */
+    Kruskal<string,double> krus(udir_graph);
+    krus.apply();
+    UnDirectedGraph<string, double>* graph2 = krus.kruskal_(krus);
+    cout << "Kruskal: " << endl;
+    graph2->display(); 
+
+    cout<<endl<<endl;
+    /* PRIM IMPLEMENTACIÓN  */
+    Prim<string,double> prim_alg(udir_graph);
+    UnDirectedGraph<string, double> prim_result = prim_alg.apply(); 
+    cout << "Prim: " << endl;
+    prim_alg.display(); 
+
+    cout<<endl<<endl;
+    /* Dijkstra IMPLEMENTACIÓN   */
+    Dijkstra<string,double> dijs(udir_graph,"Piura");
+    dijs.apply();
+    cout << "Dijkstra: " << endl;
+    dijs.display(); 
+
+    cout<<endl<<endl;
+    /* Floyd IMPLEMENTACIÓN   */
+    Floyd<string,double> floyd(dir_graph);
+    floyd.apply();
+    cout << "Floyd Warshall: " << endl;
+    floyd.display();
+    floyd.show_path("Cuzco","Puerto Maldonado");
 }
 
-/*
+/* */
 void Tester::executeParserInternational() {
     cout << endl<<"---------------- PARSER INTERNACIONAL -----------------" << endl;
     Parser graph("Parser/Data/airports.json");
@@ -88,6 +187,6 @@ void Tester::executeParserInternational() {
     graph.dGraphMake(dGraph);
     dGraph.display();
 }
-*/
+
 
 #endif

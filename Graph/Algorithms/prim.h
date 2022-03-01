@@ -11,7 +11,7 @@ class Prim{
 
         // Argumentos de entrada y salida
         UnDirectedGraph<TV,TE>* graph;
-        UnDirectedGraph<TV,TE>* Prim_BST = new UnDirectedGraph<TV,TE>();
+        UnDirectedGraph<TV,TE> Prim_BST;
 
         // Atributos útiles
         std::unordered_map<string,TE> table_weights; // Lista de todas las aristas inicidas con Infinito   
@@ -36,7 +36,7 @@ class Prim{
         Prim(UnDirectedGraph<TV,TE>* _graph) : graph(_graph){}; 
         ~Prim() = default;
 
-        void apply_search(){ 
+        UnDirectedGraph<TV,TE> apply(){ 
             // Inicializar la cola de los pares de vértices
             for (auto iter = graph -> vertexes.begin(); iter != graph -> vertexes.end();iter++){
                 table_weights[iter->first] = std::numeric_limits<int>::max();
@@ -46,6 +46,7 @@ class Prim{
             Vertex<TV,TE>* vert = graph -> vertexes.begin() -> second;
             table_weights[vert->id] = 0;
             padres[vert -> id] = "-";
+            Prim_BST.insertVertex(vert-> id,  vert -> data);
 
             while(!table_weights.empty()){
                 // Devuelve el mínimo y lo extrae de la cola
@@ -61,23 +62,17 @@ class Prim{
 
                     if (table_weights.find(id_neigh) != table_weights.end()){
                         if (table_weights[id_neigh] > peso){
+                            Prim_BST.insertVertex(id_neigh, graph -> vertexes[id_neigh] -> data);
+                            Prim_BST.createEdge(vert_eval, id_neigh, peso);
                             table_weights[id_neigh] = peso;
                             padres[id_neigh] = vert_eval;
                         }
                     }
                 }
             }
-
-            for (auto iter = padres.begin(); iter != padres.end();iter++){
-                cout << "El nodo " << iter -> first << " tiene como padre: " << iter -> second<< endl;
-            }
+            return Prim_BST;
         };
 
-
-
-
-
-        UnDirectedGraph<TV,TE>* get_graph(){return Prim_BST;};
 
         void display(){ 
             // Mostrar BST

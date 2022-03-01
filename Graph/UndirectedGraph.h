@@ -20,10 +20,20 @@ class UnDirectedGraph : public Graph<TV, TE>{
 
         bool createEdge(string id1, string id2, TE w){ // Listo- Validado
             // Si existen los vertices agrega la arista en ambos
-            if (findById(id1) && findById(id2)) {
+            if ((findById(id1) && findById(id2)) && (id1 != id2)) {
                 Edge<TV, TE>* edgecreado = new Edge<TV, TE>(this->vertexes[id1],this->vertexes[id2],w);
-                this->vertexes[id1]->edges.push_back(edgecreado);
-                this->vertexes[id2]->edges.push_back(edgecreado);
+                bool edge_exist = false;
+                for (auto edge: this -> vertexes[id1] -> edges){
+                    if (  (edge -> vertexes[0] -> id == id1 ||  edge -> vertexes[1] -> id == id1) && (edge -> vertexes[0] -> id == id2 ||  edge -> vertexes[1] -> id == id2) ){
+                        edge_exist = true;
+                    }
+                }
+
+                if (!edge_exist){
+                    this->vertexes[id1]->edges.push_back(edgecreado);
+                    this->vertexes[id2]->edges.push_back(edgecreado);
+                }
+
                 return true;
             }
             return false;
