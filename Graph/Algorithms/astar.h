@@ -15,11 +15,11 @@ class AStar{
         UnDirectedGraph<TV,TE> astar_graph;
         string id_inicial;
         string id_meta;
-        unordered_map<string,TV> tabla_h;
+        unordered_map<string,TE> tabla_h;
         unordered_map<string,string> tabla_padres;
         unordered_map<string,bool> tabla_used;
         unordered_map<string,int> vect_mapheuristics;
-        vector<int> heuristics;
+        vector<TE> heuristics;
 
 
         TE calcular_Gn(string vert_id){
@@ -63,7 +63,7 @@ class AStar{
 
 
     public:
-        AStar(Graph<TV,TE>* _graph, string _id_inicial, string _id_meta, vector<int> _heuristics) : graph(_graph), id_inicial(_id_inicial), id_meta(_id_meta), heuristics(_heuristics) {
+        AStar(Graph<TV,TE>* _graph, string _id_inicial, string _id_meta, vector<TE> _heuristics) : graph(_graph), id_inicial(_id_inicial), id_meta(_id_meta), heuristics(_heuristics) {
             int cont = 0;
             for (auto iter = graph -> vertexes.begin(); iter != graph -> vertexes.end(); iter++){
                 vect_mapheuristics[iter -> first] = cont; 
@@ -78,7 +78,7 @@ class AStar{
             // F(n) -> Distancia del nodo actual [n] hacia el deseado - Heurística
             Vertex<TV,TE>* vert =  graph -> vertexes.find(id_inicial) -> second;
             string vert_id = vert -> id;
-            tabla_h[vert_id]  = 0 +  vert -> data; // Se considera data como la heurística ( 0 + H(n) = F(n) )
+            tabla_h[vert_id]  = heuristics[vect_mapheuristics[vert_id]]; // Se considera data como la heurística ( 0 + H(n) = F(n) )
             bool reach_flag = false; // 
             while (!reach_flag){
                 // Indicar vértice a utilizar

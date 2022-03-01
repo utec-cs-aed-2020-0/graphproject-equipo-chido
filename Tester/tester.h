@@ -4,6 +4,7 @@
 
 #include <string>
 #include <iostream>
+#include <sstream>
 
 
 #include "../Graph/DirectedGraph.h"
@@ -11,6 +12,11 @@
 #include "../Parser/parser.hpp"
 #include "../Parser/helper_functs.hpp"
 #include "../Graph/Algorithms/astar.h"
+#include "../Graph/Algorithms/greedybfs.h"
+
+#include "../Graph/Algorithms/bellman.h"
+
+#include "../Graph/Algorithms/kruskal.h"
 
 
 
@@ -79,22 +85,61 @@ void Tester::executeParserPeru() {
 
     Parser Peru("Parser/Data/pe.json");
     Peru.readJSON();
-    DirectedGraph<string, double> uGraph;
+    // Directed
+    // DirectedGraph<string, double> uGraph;
+    // DirectedGraph<string, double>* dir_graph = &uGraph; 
+    // Peru.dGraphMake(uGraph);
 
-    Peru.dGraphMake(uGraph);
+    // UnDirectedGraph
+    UnDirectedGraph<string, double> uGraph;
+    UnDirectedGraph<string, double>* dir_graph = &uGraph; 
+    Peru.uGraphMake(uGraph);
     cout<<endl;
     uGraph.display();
 
-    // Create heuristics
+
     string from = "Piura";
     string to = "Pucallpa";
 
+    string to_dists = uGraph.vertexes[to]->data;
+    string lat_2 = to_dists.substr(0,to_dists.find("\n"));
+    string lon_2 = to_dists.substr(to_dists.find("\n")+1,to_dists.size());
 
-    
 
-    // AStar<string,double> astar_alg(&uGraph,from,to, heuristics);
-    // astar_alg.apply();
-    // astar_alg.display();
+    vector<double> heuristic;
+    for (auto iter = uGraph.vertexes.begin(); iter != uGraph.vertexes.end(); iter++){
+        // cout << "Ciudad: " << iter -> first << " -> Coordenadas: \n" << iter -> second -> data << endl; 
+        string dists = iter -> second -> data;
+        string lat_1 = dists.substr(0,dists.find("\n"));
+        string lon_1 = dists.substr(dists.find("\n")+1,dists.size());
+        double value = distance(lat_1, lon_1, lat_2, lon_2);
+        heuristic.push_back(value);
+    }
+    // Create heuristics
+
+    /*  A-Star Implementación 
+    cout << "El mejor camino para ir de " << from << " a " << to  << " es : " << endl; 
+    AStar<string,double> astar_alg(dir_graph,from,to, heuristic);
+    astar_alg.apply();
+    astar_alg.display(); */
+
+    /* GREEDY DFS IMPLEMENTACIÓN
+    Greedy<string,double> greedy_alg(dir_graph,from,to, heuristic);
+    greedy_alg.apply();
+    greedy_alg.display(); */
+
+    /* BELLMAN IMPLEMENTACIÓN
+    Bellman<string,double> bell(dir_graph,"Cuzco    ");
+    bell.apply();
+    cout << "Bellman Ford: " << endl;
+    bell.display();  */ 
+
+    /* Kruskal Implementación
+    Kruskal<string,double> krus(dir_graph);
+    krus.apply();
+    UnDirectedGraph<string, double>* graph2 = krus.kruskal_(krus);
+    cout << "\nKruskal Implementación: " << endl;
+    graph2->display();  */
 }
 
 /*

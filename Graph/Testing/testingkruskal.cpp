@@ -37,9 +37,9 @@ int main(){
     
     graph -> display();
 
-    Kruskal<int,int> krus(graph);
+    Kruskal<string,double> krus(graph);
     krus.apply();
-    UnDirectedGraph<int, int>* graph2 = krus.kruskal_(krus);
+    UnDirectedGraph<string, double>* graph2 = krus.kruskal_(krus);
     cout << "Kruskal: " << endl;
     graph2->display();
 }
