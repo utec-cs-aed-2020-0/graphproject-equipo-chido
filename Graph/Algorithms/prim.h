@@ -70,11 +70,6 @@ class Prim{
                     }
                 }
             }
-
-            for (auto iter = padres.begin(); iter != padres.end();iter++){
-                cout << "El nodo " << iter -> first << " tiene como padre: " << iter -> second<< endl;
-            }
-
             return Prim_BST;
         };
 

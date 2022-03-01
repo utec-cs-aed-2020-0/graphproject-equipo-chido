@@ -17,15 +17,18 @@
 #include "../Graph/Algorithms/bellman.h"
 
 #include "../Graph/Algorithms/kruskal.h"
+#include "../Graph/Algorithms/prim.h"
 
+#include "../Graph/Algorithms/dijkstra.h"
 
+#include "../Graph/Algorithms/floyd.h"
 
 using namespace std;
 
 struct Tester {
     static void executeExamples();
     static void executeParserPeru();
-    //static void executeParserInternational();
+    static void executeParserInternational();
 };
 
 void Tester::executeExamples() {
@@ -134,15 +137,34 @@ void Tester::executeParserPeru() {
     cout << "Bellman Ford: " << endl;
     bell.display();  */ 
 
-    /* Kruskal Implementación
+    /* KRUSKAL IMPLEMENTACIÓN
     Kruskal<string,double> krus(dir_graph);
     krus.apply();
     UnDirectedGraph<string, double>* graph2 = krus.kruskal_(krus);
     cout << "\nKruskal Implementación: " << endl;
     graph2->display();  */
+
+
+    /* PRIM IMPLEMENTACIÓN 
+    Prim<string,double> prim_alg(dir_graph);
+    UnDirectedGraph<string, double> prim_result = prim_alg.apply(); 
+    prim_alg.display(); */ 
+
+
+    /* Dijkstra IMPLEMENTACIÓN   
+    Dijkstra<string,double> dijs(dir_graph,"Piura");
+    dijs.apply();
+    cout << "Dijkstra: " << endl;
+    dijs.display(); */
+
+    /* Floyd IMPLEMENTACIÓN   
+    Floyd<string,double> floyd(dir_graph);
+    floyd.apply();
+    floyd.display();
+    floyd.show_path("Cuzco","Puerto Maldonado"); */ 
 }
 
-/*
+/* */
 void Tester::executeParserInternational() {
     cout << endl<<"---------------- PARSER INTERNACIONAL -----------------" << endl;
     Parser graph("Parser/Data/airports.json");
@@ -151,6 +173,6 @@ void Tester::executeParserInternational() {
     graph.dGraphMake(dGraph);
     dGraph.display();
 }
-*/
+
 
 #endif

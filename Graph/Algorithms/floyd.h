@@ -125,7 +125,16 @@ class Floyd{
             }
             cout << endl;
         }
+    }
 
+    void show_path(string from, string to){
+        string init = from;
+        cout << "La trayectoria es: ";
+        while (init != to){
+            cout << init << " -> ";
+            init = mat_recorr[vertex_pos[init]][vertex_pos[to]];
+        }
+        cout << init << endl; ;
     }
 };
 
