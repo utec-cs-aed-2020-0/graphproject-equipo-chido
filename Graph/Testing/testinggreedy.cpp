@@ -23,8 +23,13 @@ int main(){
     graph -> insertVertex("K",4);
     graph -> insertVertex("L",6);
 
+    vector <int> heuristics;
+    for (auto iter = graph -> vertexes.begin();iter != graph -> vertexes.end(); iter++){
+        heuristics.push_back(iter -> second -> data);
+    }
+
     graph -> createEdge("S","A", 1);
-    graph -> createEdge("S","B", 2);
+    graph -> createEdge("S","B", 2); 
     graph -> createEdge("S","C", 3);
     graph -> createEdge("A","B", 4);
     graph -> createEdge("A","D", 5);
@@ -42,8 +47,8 @@ int main(){
     graph -> createEdge("K","E", 17);
 
     graph -> display();
-    Greedy<int,int> greedy_graph(graph,"S","E");
-    greedy_graph.apply_search();
+    Greedy<int,int> greedy_graph(graph,"S","E",heuristics);
+    greedy_graph.apply();
     cout << "Greedy BFS: " << endl;
     greedy_graph.display();
 }
