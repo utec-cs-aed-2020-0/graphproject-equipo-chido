@@ -10,9 +10,11 @@ int main(int argc, char *argv[]) {
     std::cout << "MENU GRAPH TESTER" << std::endl;
     std::cout << "================================================" << std::endl;
 
-    Tester::executeExamples();
+    // Tester::executeExamples();
     Tester::executeParserPeru();
     //Tester::executeParserInternational();
+
+    
 
     return EXIT_SUCCESS;
 }

@@ -51,6 +51,17 @@
         "algorithm": "cpp",
         "queue": "cpp",
         "unordered_set": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "valarray": "cpp",
+        "array": "cpp",
+        "forward_list": "cpp",
+        "fstream": "cpp",
+        "functional": "cpp",
+        "iomanip": "cpp",
+        "map": "cpp",
+        "numeric": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp",
+        "xtree": "cpp"
     }
 }

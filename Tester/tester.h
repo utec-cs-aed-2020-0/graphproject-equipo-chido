@@ -1,11 +1,18 @@
 #ifndef TESTER_H
 #define TESTER_H
 
+
+#include <string>
+#include <iostream>
+
+
 #include "../Graph/DirectedGraph.h"
 #include "../Graph/UndirectedGraph.h"
 #include "../Parser/parser.hpp"
-#include <string>
-#include <iostream>
+#include "../Parser/helper_functs.hpp"
+#include "../Graph/Algorithms/astar.h"
+
+
 
 using namespace std;
 
@@ -77,6 +84,17 @@ void Tester::executeParserPeru() {
     Peru.dGraphMake(uGraph);
     cout<<endl;
     uGraph.display();
+
+    // Create heuristics
+    string from = "Piura";
+    string to = "Pucallpa";
+
+
+    
+
+    // AStar<string,double> astar_alg(&uGraph,from,to, heuristics);
+    // astar_alg.apply();
+    // astar_alg.display();
 }
 
 /*
