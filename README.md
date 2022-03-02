@@ -331,3 +331,17 @@ g++ main.cpp -o main
 
 ./main
 ```
+### Contribución
+Cada integrante del grupo contribuyó de manera equitativa al desarrollo del proyecto.
+
+Claudia Pacori: 
+- Grafos: Delete Vertex (Undirected y Directed), Create Edge (Undirected y Directed), Operator(), Density, Strongly Connected (Directed), Empty, Clear, findById, Display, 
+- Algoritmos: BFS, Kruskal, Dijkstra, Greedy BFS, Bellman 
+- Parser: Clase Parser y Helper de Parser
+- Otros: README
+
+Elmer Escandón: 
+- Grafos: Insert Vertex (Undirected y Directed), Delete Edge (Undirected y Directed), isDense, isConnected, DisplayVertex (Undirected y Directed) 
+- Algoritmos: DFS, Prim, A*, Floyd Warshall
+- Tester:  Tester para grafos basicos, Tester para Peru, Tester internacional, Heurística 
+- Otros: Merge debugging e Interfaz de interacción con usuario (excecuteDirected/excecuteUnDirected)
