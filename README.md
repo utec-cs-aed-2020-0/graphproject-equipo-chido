@@ -166,7 +166,7 @@ Como prueba se incluye el camino desde Piura hasta Tacna, resultante de aplicar 
 </figure>
 
 ### A*
-Se utilizaron unordered_maps para almacenar la heurística según el id del vértice, los padres por donde se debe regresar, una tabla_used marcando la lista cerrada al recorrer los vértices. Asimismo, se recibe un vector con la heurística. Se utilizaron funciones para calcular $G(n) = F(n) + H(n)$ y extraer el id del vértice al que se conecta con un peso mínimo.
+Se utilizaron unordered_maps para almacenar la heurística según el id del vértice, los padres por donde se debe regresar, una tabla_used marcando la lista cerrada al recorrer los vértices. Asimismo, se recibe un vector con la heurística. Se utilizaron funciones para calcular *"G(n) = F(n) + H(n)"* y extraer el id del vértice al que se conecta con un peso mínimo.
 ```cpp
 AStar<int,int> astar(graph,"A","I", vector<int> heuristics);
 UndirectedGraph<int, int> result = astar.apply();
@@ -205,7 +205,7 @@ Como prueba se incluye el camino desde Cuzco hasta Puerto Maldonado, resultante 
 </figure>
 
 ### Bellman Ford
-El algoritmo de Kruskal funciona únicamente para grafos dirigidos.Se utilizaron unordered_maps para almacenar las distancias hacia otros vértices (distancia), los id de cada vértice (ids) y los padres por donde debe retornar (predecesor). Este algoritmo, a diferencia de Dijkstra, funciona con aristas con pesos negativos. El método display muestra las distancias dese cierto start_id hacia todos los demás vértices con su respectivo peso y padre.
+El algoritmo de Bellman Ford funciona únicamente para grafos dirigidos.Se utilizaron unordered_maps para almacenar las distancias hacia otros vértices (distancia), los id de cada vértice (ids) y los padres por donde debe retornar (predecesor). Este algoritmo, a diferencia de Dijkstra, funciona con aristas con pesos negativos. El método display muestra las distancias dese cierto start_id hacia todos los demás vértices con su respectivo peso y padre.
 ```cpp
 Bellman<int,int> bell(graph,"B");
 bell.apply();
@@ -221,7 +221,7 @@ Como prueba se incluye el camino desde Cuzco hasta Tacna, resultante de aplicar 
 
 ## JSON file parser
 ----
-Se utilizó la librería [nlohmann::json](https://github.com/nlohmann/json), para poder construir los grados Directed y UnDirected a partir de un archivo JSON de aereopuertos del Perú y el mundo. 
+Se utilizó la librería [nlohmann::json](https://github.com/nlohmann/json), para poder construir los grafos Directed y UnDirected a partir de un archivo JSON de aereopuertos del Perú y el mundo. 
 Se implementó una clase parser que tiene como atributos un string con la ruta del archivo y un jsonGraph que almacena el JSON que será accedido más adelante.
 ```cpp
 class Parser{
@@ -285,7 +285,7 @@ Permite encontrar el index de un aeropuerto en el objeto json utilizando solo el
 
 Cabe resaltar que se eliminaron manualmente los códigos "2762", "1871", "3670", "3797", "3484", "3576", "2650", "193", "1382", "1824", "2771", "3988", "2651", "2699", "2709", "2851", "2715", "2560", "2564", "2673", "2745", "2816", "2599", "1892", "1762", "1885", "2688", "580", "3533", "1871", "3682", "1229", "2554", "2443", "1852", "1909", "1760", "3494", "3550" y "2802" de los aeropuertos que los tenían como destination en el archivo JSON de Perú. Esto debido a que creaba edges hacia el mismo punto, en el caso de Lima, al no estar ligados a una ciudad en específico.
 
-Por otro lado, se eliminaron manualmente los aeropuertos 5562, 5674 y 5675 en el archivo JSON internacional, ya que en las latitudes tenían letras, por lo que se consideró como data corrupta, y el aeropuerto 1104, pues su única destination era hacia uno de los aeropuertos previamente mencionados.
+Por otro lado, se eliminaron manualmente los aeropuertos "5562", "5674" y "5675" en el archivo JSON internacional, ya que en las latitudes tenían letras, por lo que se consideró como data corrupta, y el aeropuerto "1104", pues su única destination era hacia uno de los aeropuertos previamente mencionados.
 
 ```cpp
 int findByAirportID(json jsonGraph, string id);
