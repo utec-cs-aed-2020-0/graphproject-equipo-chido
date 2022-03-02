@@ -100,6 +100,7 @@ void display();
 ----
 Se implementaron y probaron un total de nueve algoritmos los cuales son los siguientes:
 > Se incluyen gráficos que para una mejor visualización pueden ser accedidos desde [este hipervínculo](https://miro.com/app/board/o9J_ltHP40Y=/?invite_link_id=828276918578).
+
 ### BFS
 Se utilizó un unordered_map para guardar la data de los vértices visitados, un queue que almacenará la data de los vértices adyacentes al actual vértice, y un grafo dirigido, el cual se retornará con todos los vértices conectados según sus adyacentes.
 ```cpp
@@ -267,6 +268,8 @@ void uGraphMake(UndirectedGraph<string, double> &tempGraph); // Adds the parsed 
 #### Creador del grafo dirigido
 De manera similar al grafo no dirigido, se crean los vértices con el nombre de la ciudad del aeropuerto como id y un string con la latitud y longitud de este mismo como data.
 Luego, se crean las aristas conectando cada aeropuerto (a partir del nombre de la ciudad que los identifica) con sus destinations incluyendo como peso la distancia euclidiana entre ellos.
+> Se llegó a correr el creador de grafos dirigidos para el archivo airports.json, se adjunta [este video](https://drive.google.com/file/d/13C1FcDUjtnCIi1su_P7yBy0S3gs1MacR/view?usp=sharing) como evidencia de su funcionamiento.
+
 ```cpp
 void dGraphMake(DirectedGraph<string, double> &tempGraph); // Adds the parsed data into the specified directed graph
 ```
