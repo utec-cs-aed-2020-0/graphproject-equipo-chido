@@ -198,7 +198,7 @@ Floyd<int,int> floyd(graph);
 floyd.apply();
 floyd.display();
 ```
-Como prueba se incluye el camino desde Cuzco hasta Puerto Maldonado, resultante de aplicar el algoritmo sobre el archivo JSON Perú. Comprobamos que estos vértices están conectados, ya que la distancia entre ellos es de 0 y el recorrido sería directo.
+Como prueba se incluye el camino desde Cuzco hasta Puerto Maldonado, resultante de aplicar el algoritmo sobre el archivo JSON Perú. Comprobamos que estos vértices están conectados, la distancia entre ellos es de 310.932 y el recorrido sería directo.
 
 <figure align="center" class="image">
   <img src="Imagenes/floyd.jpg" width="50%" style="text-align:center;">
@@ -282,7 +282,11 @@ long double distance(string lat1, string long1, string lat2, string long2);
 ```
 #### Find Airport by ID
 Permite encontrar el index de un aeropuerto en el objeto json utilizando solo el Airport ID. Además, la función retorna por defecto el index 15 que corresponde a la ciudad de Lima en caso no exista el destino que se está buscando.
-Cabe resaltar que se eliminaron manualmente los códigos "2762", "1871", "3670", "3797", "3484", "3576", "2650", "193", "1382", "1824", "2771", "3988", "2651", "2699", "2709", "2851", "2715", "2560", "2564", "2673", "2745", "2816", "2599", "1892", "1762", "1885", "2688", "580", "3533", "1871", "3682", "1229", "2554", "2443", "1852", "1909", "1760", "3494", "3550" y "2802" de los aeropuertos que los tenían como destination en el archivo JSON. Esto debido a que creaba edges hacia el mismo punto, en el caso de Lima, al no estar ligados a una ciudad en específico.
+
+Cabe resaltar que se eliminaron manualmente los códigos "2762", "1871", "3670", "3797", "3484", "3576", "2650", "193", "1382", "1824", "2771", "3988", "2651", "2699", "2709", "2851", "2715", "2560", "2564", "2673", "2745", "2816", "2599", "1892", "1762", "1885", "2688", "580", "3533", "1871", "3682", "1229", "2554", "2443", "1852", "1909", "1760", "3494", "3550" y "2802" de los aeropuertos que los tenían como destination en el archivo JSON de Perú. Esto debido a que creaba edges hacia el mismo punto, en el caso de Lima, al no estar ligados a una ciudad en específico.
+
+Por otro lado, se eliminaron manualmente los aeropuertos 5562, 5674 y 5675 en el archivo JSON internacional, ya que en las latitudes tenían letras, por lo que se consideró como data corrupta, y el aeropuerto 1104, pues su única destination era hacia uno de los aeropuertos previamente mencionados.
+
 ```cpp
 int findByAirportID(json jsonGraph, string id);
 ```
