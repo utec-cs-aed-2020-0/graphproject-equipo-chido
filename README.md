@@ -284,7 +284,7 @@ Calcula la distancia euclidiana entre dos latitudes y longitudes. Para ello, con
 long double distance(string lat1, string long1, string lat2, string long2);
 ```
 #### Find Airport by ID
-Permite encontrar el index de un aeropuerto en el objeto json utilizando solo el Airport ID. Además, la función retorna por defecto el index 15 que corresponde a la ciudad de Lima en caso no exista el destino que se está buscando.
+Permite encontrar el index de un aeropuerto en el objeto json utilizando solo el Airport ID. Además, la función retorna por defecto el index 15 que corresponde a la ciudad de Lima (en los aeropuertos de Perú) y Duesseldorf (en los aeropuertos internacionales) en caso no exista el destino que se está buscando.
 
 Cabe resaltar que se eliminaron manualmente los códigos "2762", "1871", "3670", "3797", "3484", "3576", "2650", "193", "1382", "1824", "2771", "3988", "2651", "2699", "2709", "2851", "2715", "2560", "2564", "2673", "2745", "2816", "2599", "1892", "1762", "1885", "2688", "580", "3533", "1871", "3682", "1229", "2554", "2443", "1852", "1909", "1760", "3494", "3550" y "2802" de los aeropuertos que los tenían como destination en el archivo JSON de Perú. Esto debido a que creaba edges hacia el mismo punto, en el caso de Lima, al no estar ligados a una ciudad en específico.
 
@@ -323,6 +323,8 @@ Esta implementa diferentes funciones que nos permitirán recorrer todo lo implem
 * ***excecuteUnDirected*(Parser Peru):** Crea el grafo no dirigido y muestra las opciones para obtener la mejor ruta con los siguientes algoritmos: A-Star, Floyd-Warshall, Greedy BFS, Dijkstra, Kruskal y Prim. En caso sea necesario, permite ingresar las ciudades de procedencia y destino del viaje.
 
 * ***executeParserInternacional*():** Lee el archivo airports.json, crea un grafo dirigido con esos datos y los muestra.
+* **create_heuristics(Graph<string, double>* dir_grafo,string to):** Utiliza el argumento to para generar la distancia euclidiana desde ese vértice hacia todos los demás para luego retornar esta data en un vector.
+* 
 
 Finalmente, para ejecutar el proyecto se debe colocar los siguientes comandos en la consola:
 ```cpp
