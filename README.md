@@ -111,6 +111,7 @@ Como prueba se incluye el resultado del siguiente grafo de 5 vértices el cual s
 <figure align="center" class="image">
   <img src="Imagenes/bfs.jpg" width="50%" style="text-align:center;">
 </figure>
+
 ### DFS
 Se utilizó un unordered_map para verificar qué vértices han sido visitados, un stack que almacenará la data de los vértices según se encuentren nuevas conexiones, y un grafo que se retornará con todos los vértices conectados al terminar el algoritmo.
 ```cpp
@@ -123,6 +124,7 @@ Como prueba se incluye el resultado del siguiente grafo de 4 vértices el cual s
 <figure align="center" class="image">
   <img src="Imagenes/dfs.jpg" width="50%" style="text-align:center;">
 </figure>
+
 ### Prim
 El algoritmo de Prim funciona únicamente para grafos no dirigidos. Se utilizó una función que extrae el id del vértice al que se conecta con un peso mínimo a partir de un unordered_map con todos los pesos. El algoritmo retorna el menor camino posible desde cierto vértice hacia todos los vértices del grafo, indicando los padres de cada uno.
 ```cpp
@@ -135,6 +137,7 @@ Como prueba se incluye el MST resultante de aplicar el algoritmo sobre el archiv
 <figure align="center" class="image">
   <img src="Imagenes/prim.jpg" width="50%" style="text-align:center;">
 </figure>
+
 ### Kruskal
 El algoritmo de Kruskal funciona únicamente para grafos no dirigidos. Se utilizaron Disjoint Sets, de manera que al iterar por todas las aristas ordenadas se podía comprobar si el vértice al que se conectaba pertenece a un set diferente, realizando llamadas a Find(). Luego, se unían los vértices en el DS (Union by rank) y en el grafo.
 ```cpp
@@ -148,6 +151,7 @@ Como prueba se incluye el MST resultante de aplicar el algoritmo sobre el archiv
 <figure align="center" class="image">
   <img src="Imagenes/kruskal.jpg" width="50%" style="text-align:center;">
 </figure>
+
 ### Dijkstra
 Se utilizaron unordered_maps para almacenar las distancias hacia otros vértices (distancia), los id de cada vértice (ids) y los padres por donde debe retornar (parents). El método display muestra las distancias dese cierto start_id hacia todos los demás vértices con su respectivo peso y padre.
 ```cpp
@@ -160,6 +164,7 @@ Como prueba se incluye el camino desde Piura hasta Tacna, resultante de aplicar 
 <figure align="center" class="image">
   <img src="Imagenes/dijkstra.jpg" width="50%" style="text-align:center;">
 </figure>
+
 ### A*
 Se utilizaron unordered_maps para almacenar la heurística según el id del vértice, los padres por donde se debe regresar, una tabla_used marcando la lista cerrada al recorrer los vértices. Asimismo, se recibe un vector con la heurística. Se utilizaron funciones para calcular $G(n) = F(n) + H(n)$ y extraer el id del vértice al que se conecta con un peso mínimo.
 ```cpp
@@ -172,6 +177,7 @@ Como prueba se incluye el camino desde Piura hasta Pucallpa, resultante de aplic
 <figure align="center" class="image">
   <img src="Imagenes/astar.jpg" width="50%" style="text-align:center;">
 </figure>
+
 ### Greedy BFS
 Funciona de manera similar al algoritmo A-Star. Se utilizaron unordered_maps para almacenar la heurística según el id del vértice, los padres por donde se debe regresar, una tabla_used marcando la lista cerrada al recorrer los vértices. Asimismo, se recibe un vector con la heurística. Se utilizó una función para extraer el id del vértice al que se conecta con un peso mínimo.
 ```cpp
@@ -184,6 +190,7 @@ Como prueba se incluye el camino desde Piura hasta Pucallpa, resultante de aplic
 <figure align="center" class="image">
   <img src="Imagenes/greedy.jpg" width="50%" style="text-align:center;">
 </figure>
+
 ### Floyd Warshall
 Se utilizaron matrices para almacenar las distancias hacia todos los vértices y el recorrido que se debe seguir para llegar a ellas. Este algoritmo, a diferencia de Dijkstra, funciona con aristas con pesos negativos. Al imprimir, muestra tanto la matriz de distancias como la de recorridos. Luego, permite conocer el camino más corto desde y hacia cualquier vértice.
 ```cpp
@@ -196,6 +203,7 @@ Como prueba se incluye el camino desde Cuzco hasta Puerto Maldonado, resultante 
 <figure align="center" class="image">
   <img src="Imagenes/floyd.jpg" width="50%" style="text-align:center;">
 </figure>
+
 ### Bellman Ford
 El algoritmo de Kruskal funciona únicamente para grafos dirigidos.Se utilizaron unordered_maps para almacenar las distancias hacia otros vértices (distancia), los id de cada vértice (ids) y los padres por donde debe retornar (predecesor). Este algoritmo, a diferencia de Dijkstra, funciona con aristas con pesos negativos. El método display muestra las distancias dese cierto start_id hacia todos los demás vértices con su respectivo peso y padre.
 ```cpp
