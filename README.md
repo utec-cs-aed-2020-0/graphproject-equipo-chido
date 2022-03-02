@@ -323,8 +323,7 @@ Esta implementa diferentes funciones que nos permitirán recorrer todo lo implem
 * ***excecuteUnDirected*(Parser Peru):** Crea el grafo no dirigido y muestra las opciones para obtener la mejor ruta con los siguientes algoritmos: A-Star, Floyd-Warshall, Greedy BFS, Dijkstra, Kruskal y Prim. En caso sea necesario, permite ingresar las ciudades de procedencia y destino del viaje.
 
 * ***executeParserInternacional*():** Lee el archivo airports.json, crea un grafo dirigido con esos datos y los muestra.
-* **create_heuristics(Graph<string, double>* dir_grafo,string to):** Utiliza el argumento to para generar la distancia euclidiana desde ese vértice hacia todos los demás para luego retornar esta data en un vector.
-* 
+* create_heuristics(Graph<string, double>* dir_grafo,string to): Utiliza el argumento to para generar la distancia euclidiana desde ese vértice hacia todos los demás para luego retornar esta data en un vector.
 
 Finalmente, para ejecutar el proyecto se debe colocar los siguientes comandos en la consola:
 ```cpp
