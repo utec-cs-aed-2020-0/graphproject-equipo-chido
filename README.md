@@ -102,7 +102,7 @@ Descripción
 BFS<int,int> bfs(graph, "A");
 bfs.display();
 ```
-![bfs](\Imagenes\bfs.jpg)
+![bfs](Imagenes/bfs.jpg)
 
 ### DFS
 Descripción
