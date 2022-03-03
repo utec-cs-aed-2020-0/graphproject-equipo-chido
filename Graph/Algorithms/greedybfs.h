@@ -1,18 +1,17 @@
-#ifndef ASTAR_H
-#define ASTAR_H
+#ifndef GREEDYBFS_H
+#define GREEDYBFS_H
 
-#include "../undirectedgraph.h"
 #include "../graph.h"
 #include <iostream>
-#include <limits>
+#include <climits>
 
 template<typename TV, typename TE>
 
-class AStar{
+class Greedy{
     
     private:
         Graph<TV,TE>* graph;
-        UnDirectedGraph<TV,TE> astar_graph;
+        UnDirectedGraph<TV,TE> greedy_graph;
         string id_inicial;
         string id_meta;
         unordered_map<string,TE> tabla_h;
@@ -21,34 +20,8 @@ class AStar{
         unordered_map<string,int> vect_mapheuristics;
         vector<TE> heuristics;
 
-
-        TE calcular_Gn(string vert_id){
-            string id_eval = vert_id;
-            TE Gn_value = 0;
-             
-            // cout << "Calculo de Gn" << endl; 
-            while (id_eval != id_inicial){
-                string prev_id_eval = tabla_padres[id_eval];
-                // cout << "El padre de " << id_eval << " es " << prev_id_eval << endl;
-            //     // Distancia desde id_inical hasta id_eva 
-                Vertex<TV,TE>* prev_vert = graph -> vertexes[prev_id_eval];
-
-                for (auto edge : prev_vert -> edges){ 
-                    // cout << edge -> vertexes[0] -> id << ", " << edge -> vertexes[1] -> id << endl;
-                    if ((edge -> vertexes[0] -> id == id_eval && edge -> vertexes[1] -> id == prev_id_eval )  || 
-                        (edge -> vertexes[1] -> id == id_eval && edge -> vertexes[0] -> id == prev_id_eval )){
-                            Gn_value = Gn_value + edge -> weight;
-                            // cout << Gn_value << endl;
-                    }
-                }
-
-                id_eval = prev_id_eval;
-            }
-            return Gn_value;
-        }
-
         string extraerMinimo(){
-            int val = std::numeric_limits<int>::max();
+            int val = INT_MAX;
             string id_min;
             for (auto iter_n = tabla_h.begin(); iter_n != tabla_h.end(); iter_n++){
                 // cout <<  "Se utilizól valor o no?: " << tabla_used[iter_n ->first] << endl;;
@@ -63,27 +36,25 @@ class AStar{
 
 
     public:
-        AStar(Graph<TV,TE>* _graph, string _id_inicial, string _id_meta, vector<TE> _heuristics) : graph(_graph), id_inicial(_id_inicial), id_meta(_id_meta), heuristics(_heuristics) {
+        Greedy(Graph<TV,TE>* _graph, string _id_inicial, string _id_meta,vector<TE> _heuristics) : graph(_graph), id_inicial(_id_inicial), id_meta(_id_meta), heuristics(_heuristics) {
             int cont = 0;
             for (auto iter = graph -> vertexes.begin(); iter != graph -> vertexes.end(); iter++){
                 vect_mapheuristics[iter -> first] = cont; 
                 cont++;    
             }
-
         };
-        ~AStar() = default;
+        ~Greedy() = default;
 
         UnDirectedGraph<TV,TE> apply(){
-            // G(n) -> Distancia desde el nodo inicial hacia el nodo actual [n]
             // F(n) -> Distancia del nodo actual [n] hacia el deseado - Heurística
             Vertex<TV,TE>* vert =  graph -> vertexes.find(id_inicial) -> second;
             string vert_id = vert -> id;
-            tabla_h[vert_id]  = heuristics[vect_mapheuristics[vert_id]]; // Se considera data como la heurística ( 0 + H(n) = F(n) )
+            tabla_h[vert_id]  = heuristics[vect_mapheuristics[vert_id]];// Se considera data como la heurística ( 0 + H(n) = F(n) )
             bool reach_flag = false; // 
             while (!reach_flag){
                 // Indicar vértice a utilizar
                 tabla_used[vert_id] = true;
-                astar_graph.insertVertex(vert_id, graph -> vertexes[vert_id] -> data);
+                greedy_graph.insertVertex(vert_id, graph -> vertexes[vert_id] -> data);
                 // Añadir sus aristas e incluir el valor F(n)
                 for (auto edge : graph -> vertexes[vert_id] -> edges){
                     string  vert_next = (edge -> vertexes[1] -> id != vert_id) ?
@@ -91,7 +62,7 @@ class AStar{
 
                     if (tabla_h.find(vert_next) == tabla_h.end()){
                         tabla_padres[vert_next] = vert_id;
-                        tabla_h[vert_next]  = calcular_Gn(vert_next) + heuristics[vect_mapheuristics[vert_next]];// graph -> vertexes[vert_next] -> data;  //  G(n) + H(n)
+                        tabla_h[vert_next]  = heuristics[vect_mapheuristics[vert_next]];//  F(n) = H(n)
                         tabla_used[vert_next] = false;
 
                     }
@@ -101,7 +72,7 @@ class AStar{
                             string prev_padre = tabla_padres[vert_next];
                             // Ahora cambiar y sacar el nuevo valor de Fn
                             tabla_padres[vert_next] = vert_id;
-                            TE new_Fn  = calcular_Gn(vert_next) + heuristics[vect_mapheuristics[vert_next]];
+                            TE new_Fn  = heuristics[vect_mapheuristics[vert_next]]; //F(n) = H(n)
                             if (new_Fn < tabla_h[vert_next])
                                 tabla_h[vert_next] = new_Fn;
                             else
@@ -115,7 +86,7 @@ class AStar{
 
                 string new_vert_id = extraerMinimo();
                 // Insertar arista
-                astar_graph.createEdge(vert_id, new_vert_id, 1);
+                greedy_graph.createEdge(vert_id, new_vert_id, 1);
                 vert_id = new_vert_id;
                 if (vert_id == id_meta){
                     tabla_used[vert_id] = true;
@@ -123,7 +94,7 @@ class AStar{
                 }
             }
 
-            return astar_graph;
+            return greedy_graph;
 
         };
 
